@@ -46,7 +46,7 @@ namespace winrt::TerminalApp::implementation
                                                 std::vector<::TerminalApp::SettingsLoadWarnings>& warnings);
 
         static void ExpandCommands(Windows::Foundation::Collections::IMap<winrt::hstring, winrt::TerminalApp::Command>& commands,
-                                   gsl::span<const ::TerminalApp::Profile> profiles,
+                                   gsl::span<const winrt::TerminalApp::Profile> profiles,
                                    std::vector<::TerminalApp::SettingsLoadWarnings>& warnings);
 
         static std::vector<::TerminalApp::SettingsLoadWarnings> LayerJson(Windows::Foundation::Collections::IMap<winrt::hstring, winrt::TerminalApp::Command>& commands,
@@ -69,7 +69,7 @@ namespace winrt::TerminalApp::implementation
         Windows::Foundation::Collections::IMap<winrt::hstring, winrt::TerminalApp::Command> _subcommands{ nullptr };
 
         static std::vector<winrt::TerminalApp::Command> _expandCommand(Command* const expandable,
-                                                                       gsl::span<const ::TerminalApp::Profile> profiles,
+                                                                       gsl::span<const winrt::TerminalApp::Profile> profiles,
                                                                        std::vector<::TerminalApp::SettingsLoadWarnings>& warnings);
         friend class TerminalAppLocalTests::SettingsTests;
         friend class TerminalAppLocalTests::CommandTests;

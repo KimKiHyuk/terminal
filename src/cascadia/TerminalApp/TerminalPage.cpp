@@ -2052,7 +2052,7 @@ namespace winrt::TerminalApp::implementation
     // Return Value:
     // - <none>
     IMap<winrt::hstring, winrt::TerminalApp::Command> TerminalPage::_ExpandCommands(IMapView<winrt::hstring, winrt::TerminalApp::Command> commandsToExpand,
-                                                                                    gsl::span<const ::TerminalApp::Profile> profiles)
+                                                                                    gsl::span<const winrt::TerminalApp::Profile> profiles)
     {
         std::vector<::TerminalApp::SettingsLoadWarnings> warnings;
         IMap<winrt::hstring, winrt::TerminalApp::Command> copyOfCommands = winrt::single_threaded_map<winrt::hstring, winrt::TerminalApp::Command>();
