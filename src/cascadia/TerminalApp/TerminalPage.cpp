@@ -488,7 +488,7 @@ namespace winrt::TerminalApp::implementation
 
             // If there's an icon set for this profile, set it as the icon for
             // this flyout item.
-            if (!profile.Icon().empty())
+            if (!profile.IconPath().empty())
             {
                 auto iconSource = GetColoredIcon<WUX::Controls::IconSource>(profile.GetExpandedIconPath());
 
@@ -732,7 +732,7 @@ namespace winrt::TerminalApp::implementation
 
         // Set this tab's icon to the icon from the user's profile
         const auto profile = _settings->FindProfile(profileGuid);
-        if (profile != nullptr && !profile.Icon().empty())
+        if (profile != nullptr && !profile.IconPath().empty())
         {
             newTabImpl->UpdateIcon(profile.GetExpandedIconPath());
         }
@@ -777,13 +777,14 @@ namespace winrt::TerminalApp::implementation
         GUID connectionType{ 0 };
         GUID sessionGuid{ 0 };
 
-        if (profile.ConnectionType() != nullptr)
+        const auto hasConnectionType = profile.ConnectionType() != nullptr;
+        if (hasConnectionType)
         {
             connectionType = profile.ConnectionType().Value();
         }
 
-        if (profile.ConnectionType() != nullptr &&
-            profile.ConnectionType().Value() == winrt::guid{ AzureConnectionType } &&
+        if (hasConnectionType &&
+            connectionType == AzureConnectionType &&
             TerminalConnection::AzureConnection::IsAzureConnectionAvailable())
         {
             // TODO GH#4661: Replace this with directly using the AzCon when our VT is better
@@ -798,8 +799,8 @@ namespace winrt::TerminalApp::implementation
                                                               winrt::guid());
         }
 
-        else if (profile.ConnectionType() &&
-                 profile.ConnectionType().Value() == winrt::guid{ TelnetConnectionType })
+        else if (hasConnectionType &&
+                 connectionType == TelnetConnectionType)
         {
             connection = TerminalConnection::TelnetConnection(settings.Commandline());
         }
